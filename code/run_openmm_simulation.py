@@ -14,11 +14,10 @@ def comparePDB(pdb1, pdb2):
       print(i, residues1[i], '=>', residues2[i])
 
 def runSim(
-  pdb = r'D:\MD\ASAP-sim\models-charmm-gui\4g7y-VSD.pdb',
-  reportSteps = 1000,
-  steps = 10000,
+  pdbFile = r'D:\GitHub\MD\models\ASAP3\step3_pbcsetup.pdb',
+  steps = 10000, reportSteps = 100,
 ):
-  pdb = PDBFile(pdb)
+  pdb = PDBFile(pdbFile)
   forcefield = ForceField('charmm36.xml', 'charmm36/water.xml')
   system = forcefield.createSystem(
     pdb.topology, 
@@ -37,6 +36,8 @@ def runSim(
       stdout, reportSteps, 
       step=True, potentialEnergy=True, temperature=True
     ),
-    DCDReporter('%s.dcd' % pdb, reportSteps),
+    DCDReporter('%s.dcd' % pdbFile, reportSteps),
   ])
   simulation.step(steps)
+
+runSim()
