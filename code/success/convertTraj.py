@@ -1,6 +1,5 @@
 
-import os 
-import subprocess
+import os, subprocess
 
 for root, subdirs, files in os.walk('.'):
   for f in files:
