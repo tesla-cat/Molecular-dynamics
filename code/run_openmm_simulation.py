@@ -38,7 +38,7 @@ def runSim(pdbFile, steps = 10000, reportSteps = 100):
     DCDReporter('%s.dcd' % pdbFile, reportSteps),
   ])
   simulation.step(int(steps/2))
-  simulation.context.setParameter("Ex", 10)
+  simulation.context.setParameter("Ex", 100)
   simulation.step(int(steps/2))
 
 def analyzeSim(pdbFile):
