@@ -43,11 +43,11 @@ def runSim(pdbFile, steps = 10000, reportSteps = 100):
 
 def analyzeSim(pdbFile):
   df = pandas.read_csv('%s.csv' % pdbFile, index_col=0)
-  df.plot()
+  df.plot(subplots=True, layout=(2,1))
   plt.show()
 
 pdbFile = r'D:\GitHub\MD\models\ASAP3\step3_pbcsetup.pdb'
-if 1:
+if 0:
   runSim(pdbFile)
 else:
   analyzeSim(pdbFile)
