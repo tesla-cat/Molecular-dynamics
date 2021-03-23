@@ -43,7 +43,7 @@ def analysis1():
       axs[2,j].plot(t, df[Ek], label=pdbNames[i])
       axs[2,j].legend()
       # handle dcd data
-      resPair = (100,365)
+      resPair = (99,357) # ASP- ARG+
       f = h5py.File(fileName+'.h5', "r")
       dist = f['dist'+str(resPair)]
       axs[3,j].set_title('resDist%s [nm]'% str(resPair))
@@ -64,10 +64,14 @@ def analyzeDist():
       simId = str(amp)
       fileName = pdbFile.replace('.pdb', '-'+simId)
       traj = mdtraj.load(fileName+'.dcd', top=pdbFile)
-      resPair = (100,365)
-      def getAtom(seq):
-        return traj.topology.select("protein and resSeq %d" % seq)[0]    
-      atomPair = [getAtom(seq) for seq in resPair]
+      resPair = (99,357) # ASP- ARG+
+      # http://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/charge/
+      # http://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/#MLformula
+      atomPair = [
+        traj.topology.select("protein and resSeq 99 and name OD1")[0], 
+        traj.topology.select("protein and resSeq 357 and name NH1")[0], 
+      ]
+      print('atomPair', atomPair)
       dist = mdtraj.compute_distances(traj, [atomPair])
       f = h5py.File(fileName+'.h5', "w")
       f.create_dataset('dist'+str(resPair), data=dist)
