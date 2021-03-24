@@ -1,2 +1,4 @@
-*.tgz
 *.dcd
+*.h5
+*.tgz
+*.csv

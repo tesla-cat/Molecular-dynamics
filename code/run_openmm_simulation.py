@@ -25,7 +25,7 @@ class MySimulation:
       force.addParticle(i, [charge])
     system.addForce(force)
     # simulation
-    T, friction, dt = 300*kelvin, 1/picosecond, dt*picoseconds
+    T, friction, dt = 30*kelvin, 1/picosecond, dt*picoseconds
     integrator = LangevinMiddleIntegrator(T, friction, dt)
     simulation = Simulation(pdb.topology, system, integrator)
     self.simulation, self.pdb, self.pdbFile = simulation, pdb, pdbFile
@@ -54,10 +54,10 @@ def experiment1():
   ASAP3 = r'D:\GitHub\MD\models\ASAP3\ASAP3.pdb'
   ASAP4 = r'D:\GitHub\MD\models\ASAP4\ASAP4.pdb'
   pdbFiles = [ASAP3, ASAP4]
-  amplitudes = np.linspace(50, 100, 6).astype(int)
+  amplitudes = np.linspace(150, 300, 4).astype(int)
   
   numSteps = 10000
-  numEx = 200
+  numEx = 400
   numFrames = 100
   dt = 0.004 
 
@@ -70,7 +70,7 @@ def experiment1():
   plt.step(t, Ex)
   plt.show()
   print(amplitudes)
-  if 0:
+  if 1:
     for pdbFile in pdbFiles:
       mySim = MySimulation(pdbFile, dt)
       for amp in amplitudes:
